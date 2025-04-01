@@ -1,0 +1,56 @@
+<section class="container">
+  <h3>Restaurante {{restaurante()?.nombre}}</h3>
+  <hr>
+  <div class="grid md:grid-cols-8 gap-4">
+
+
+    <div class="grid grid-rows-1 grid-flow-col md:grid-flow-row md:grid-cols-1 gap-3">
+        <div class="flex items-center justify-center min-h-[40px] box-border">
+          <span>Horario</span>
+        </div>
+
+        @for (turno of turnos(); track $index) {
+          <div class="h-auto min-h-[40px] md:min-h-[90px] bg-white font-bold flex items-center justify-center">
+            <span>{{turno.horaInicio}}</span>
+        </div>
+
+
+        }
+
+
+    </div>
+
+    <!-- FILA HOY -->
+    <div class="grid grid-rows-1 grid-flow-col md:grid-flow-row md:grid-cols-1 gap-3">
+        <div class="flex items-center justify-center min-h-[40px]"><span>{{today | date:'dd/L'}}</span></div>
+        @for (turno of turnos(); track $index) {
+          <div class="h-auto min-h-[40px] md:min-h-[90px] bg-gray-200 flex items-center justify-center rounded-lg hover:bg-gray-300 cursor-pointer">
+            <span>0/{{restaurante()?.capacidad}}</span>
+        </div>
+        }
+    </div>
+
+
+    <!-- RESTO FILAS -->
+    @for (fecha of nextSixDays; track $index) {
+
+      <div class="grid grid-rows-1 grid-flow-col md:grid-flow-row md:grid-cols-1 gap-3">
+        <div class="flex items-center justify-center min-h-[40px]"><span>{{fecha | date:'dd/L'}}</span></div>
+        @for (turno of turnos(); track $index) {
+          <div class="h-auto min-h-[40px] md:min-h-[90px] bg-gray-200 flex items-center justify-center rounded-lg hover:bg-gray-300 cursor-pointer">
+            <span>0/{{restaurante()?.capacidad}}</span>
+        </div>
+        }
+      </div>
+
+
+    }
+
+
+  </div>
+  <hr>
+  <div class="my-6 flex items-center md:justify-end justify-center text-center gap-x-6">
+    <a routerLink="../confirmar"  class="rounded-md  bg-gray-900 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-gray-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900 w-100 md:max-w-52">Reservar</a>
+
+  </div>
+</section>
